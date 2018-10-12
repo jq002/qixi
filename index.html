@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>七夕活动</title>
     <link rel="stylesheet" href="./css/qixi.css">
-    
+
 </head>
+
 <body>
     <div class="main">
-        <div class="bg bg1"></div><div class="bg bg2"></div><div class="bg bg3"></div>
+        <div class="bg bg1"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
     </div>
     <button class="start">start</button>
     <script>
-    document.querySelector('.start').addEventListener('click',function(){
-        document.querySelector('.main').classList.add('scrollX');
-    })
+        // 以下代码做的就是，使用javascript API，操作DOM
+        document.querySelector('.start').addEventListener('click', function () {      
+            scrollMain(3,-1000,'ease-in-out');
+        })
+        function scrollMain(time,distance,timing){
+            let main=document.querySelector('.main');
+            main.style.transform='translateX('+distance+'px)';
+            main.style.transition='transform '+time+'s '+timing;
+        }
+        document.querySelector('.main').addEventListener('transitionend',()=>{
+            console.log('transitionend')
+            return new Promise(function(resolve,reject){
+                resolve();
+            })
+        });
+        new Promise(function(resolve,reject){
+            scrollMain(3,-1000,'ease-in-out');
+            console.log('111111')
+        }).then(function(){
+            console.log('2222222')
+
+        })
     </script>
 </body>
+
 </html>
